@@ -25,3 +25,27 @@ def reverseInParentheses(inputString):
             end = i 
             return reverseInParentheses(inputString[:start] + inputString[start+1 : end][::-1] + inputString[end+1:])
     return inputString
+
+
+another implementation not recursive:
+def rev(s):
+    st = -1
+    stack=[]
+    out=s
+    i=0
+    while i < len(out):
+        if out[i]=='(':
+            if st >= 0:
+                stack.append(st)
+            st=i
+        elif out[i]==')':
+            if st>=0:
+                print(out[st+1:i],i)
+                out=out[:st]+ out[st+1:i][::-1] + out[i+1:]
+                i-=2
+            if len(stack)>0:
+                st=stack.pop()
+            else:
+                st=-1
+        i+=1
+    print(out) 
